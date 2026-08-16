@@ -1,4 +1,5 @@
 # Cquence
+<<<<<<< HEAD
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.21.
 
@@ -57,3 +58,6 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+=======
+A browser based  16-step beat/drum machine. 
+>>>>>>> c8082af99c33173a60385ba9f314f4d81232c7e9
