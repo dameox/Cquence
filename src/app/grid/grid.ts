@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { empty } from 'rxjs';
+import { signal } from '@angular/core';
 
 @Component({
   selector: 'app-grid',
@@ -8,7 +8,7 @@ import { empty } from 'rxjs';
   styleUrl: './grid.css',
 })
 export class Grid {
-  tracks = [
+   tracks = signal( [
     {
       name: 'kick',
       steps: [true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false]
@@ -25,6 +25,24 @@ export class Grid {
       name: 'snare',
       steps: [false, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false]
     }
-  ];
+  ]);
+
+  toggleClick(trackIndex: number, stepIndex: number) {
+    this.tracks.update(value => {
+    return value.map((track, index) => {
+      if (index !== trackIndex) {
+        return track;
+      }
+
+
+      return {
+        ...track,
+        steps: track.steps.map((step, i) => i === stepIndex ? !step : step)
+      };
+
+      
+    });
+  });
+  }
 
 }

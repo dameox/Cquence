@@ -1,9 +1,9 @@
 <div class="grid-container">
-    @for (item of tracks; track item.name) {
+    @for (item of tracks(); track item.name; let trackIndex = $index) {
             <div class="grid-row">
                 <div class="grid-cell">{{ item.name }}</div>
-                @for (step of item.steps; track $index) {
-                    <div class="grid-cell" [class.active]="step">{{ step }}</div>
+                @for (step of item.steps; track $index; let stepIndex = $index) {
+                    <div class="grid-cell" (click)="toggleClick(trackIndex, stepIndex)" [class.active]="step">{{ step }}</div>
                 }
             </div>
     } @empty {
