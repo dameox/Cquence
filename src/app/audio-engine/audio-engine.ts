@@ -29,13 +29,13 @@ export class AudioEngine {
     }
   };
 
-  playSample(name: string) {
+  playSample(name: string, time?: number) {
     const buffer = this.sampleBuffers.get(name);
     if(buffer) {
       const source = this.audioContext.createBufferSource();
       source.buffer = buffer;
       source.connect(this.audioContext.destination);
-      source.start();
+      source.start(time ?? this.audioContext.currentTime);
     } else {
       console.log(`Sample ${name} not found.`);
     }

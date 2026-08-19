@@ -1,12 +1,15 @@
 <div class="grid-container">
-    @for (item of tracks(); track item.name; let trackIndex = $index) {
+    @for (item of sequencerState?.tracks() || []; track item.name; let trackIndex = $index) {
             <div class="grid-row">
                 <div class="grid-cell">{{ item.name }}</div>
                 @for (step of item.steps; track $index; let stepIndex = $index) {
-                    <div class="grid-cell" (click)="toggleClick(trackIndex, stepIndex)" [class.active]="step">{{ step }}</div>
+                    <div class="grid-cell" (click)="sequencerState?.toggleClick(trackIndex, stepIndex)" [class.active]="step">{{ step }}</div>
                 }
             </div>
     } @empty {
         <li>There are no items.</li>
     }
 </div>
+<button (click)="scheduler?.isPlaying() ? scheduler?.stop() : scheduler?.start()">
+  {{ scheduler?.isPlaying() ? 'Stop' : 'Play' }}
+</button>
