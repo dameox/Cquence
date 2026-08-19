@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { signal } from '@angular/core';
+import { AudioEngine } from '../audio-engine/audio-engine';
 
 @Component({
   selector: 'app-grid',
@@ -8,7 +9,13 @@ import { signal } from '@angular/core';
   styleUrl: './grid.css',
 })
 export class Grid {
-   tracks = signal( [
+    engine: AudioEngine | undefined; 
+
+  constructor() {
+    this.engine = inject(AudioEngine);
+  }
+  
+  tracks = signal( [
     {
       name: 'kick',
       steps: [true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false]
@@ -29,17 +36,22 @@ export class Grid {
 
   toggleClick(trackIndex: number, stepIndex: number) {
     this.tracks.update(value => {
+
     return value.map((track, index) => {
+
       if (index !== trackIndex) {
         return track;
+      } else {
+          return {
+            ...track,
+            steps: track.steps.map((step, i) => {
+              if(i=== stepIndex && step === false) {
+                this.engine?.playSample(track.name + '1');
+              }
+              return i === stepIndex ? !step : step;
+            }) 
+          }
       }
-
-
-      return {
-        ...track,
-        steps: track.steps.map((step, i) => i === stepIndex ? !step : step)
-      };
-
       
     });
   });
