@@ -10,14 +10,7 @@ import { Scheduler } from '../scheduler/scheduler';
   styleUrl: './grid.css',
 })
 export class Grid {
-    sequencerState: SequencerState | undefined;
-    scheduler: Scheduler | undefined;
+  sequencerState = inject(SequencerState);
 
-  constructor() {
-    this.sequencerState = inject(SequencerState);
-    this.scheduler = inject(Scheduler);
-  }
-    
-  
 
 }

@@ -9,7 +9,7 @@
 
 .grid-row {
   display: grid;
-  grid-template-columns: 120px repeat(16, 48px);
+  grid-template-columns: 80px 120px repeat(16, 48px);
   gap: 8px;
   align-items: center;
 }

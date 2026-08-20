@@ -1,10 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Grid } from './grid/grid'; 
+import { SequencerBody } from './sequencer-body/sequencer-body'; 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Grid],
+  imports: [RouterOutlet, SequencerBody],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

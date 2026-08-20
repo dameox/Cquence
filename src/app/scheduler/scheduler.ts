@@ -7,8 +7,8 @@ import { SequencerState } from '../sequencer-state/sequencer-state';
   providedIn: 'root',
 })
 export class Scheduler {
-  audioEngine: AudioEngine | undefined;
-  sequencerState: SequencerState | undefined;
+  audioEngine = inject(AudioEngine);
+  sequencerState = inject(SequencerState);
 
   currentStep = signal(0);
   nextStepTime = 0;
@@ -16,20 +16,22 @@ export class Scheduler {
   lookaheadWindow = 0.1;
   intervalId: any;
   isPlaying = signal(false);
+  anySoloed = false;
 
   stepDuration = computed(() => 60 / this.bpm() / 4);
 
   
-  constructor() {
-    this.audioEngine = inject(AudioEngine);
-    this.sequencerState = inject(SequencerState);
-  }
+ 
+
+ 
 
   tick(){
-    while(this.nextStepTime < this.audioEngine!.audioContext.currentTime + this.lookaheadWindow){
-      this.sequencerState!.tracks().forEach((track, trackIndex) => {
+    this.anySoloed = this.sequencerState!.tracks().some(track => track.soloed);
 
-        if(track.steps[this.currentStep()]){
+    while(this.nextStepTime < this.audioEngine!.audioContext.currentTime + this.lookaheadWindow){
+      this.sequencerState!.tracks().forEach((track) => {
+
+        if(track.steps[this.currentStep()] && (this.anySoloed ? track.soloed : !track.muted)) {
           this.audioEngine!.playSample(track.name + '1', this.nextStepTime);
         }
 
