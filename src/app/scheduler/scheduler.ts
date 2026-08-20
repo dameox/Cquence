@@ -17,8 +17,8 @@ export class Scheduler {
   intervalId: any;
   isPlaying = signal(false);
   anySoloed = false;
-
   stepDuration = computed(() => 60 / this.bpm() / 4);
+  swingAmount = signal(0.1);
 
   
  
@@ -37,7 +37,7 @@ export class Scheduler {
 
       });
         this.currentStep.set((this.currentStep() + 1) % 16);
-        this.nextStepTime += this.stepDuration();
+        this.nextStepTime += this.stepDuration() + ((this.currentStep() + 1)  % 2 === 1 ? this.swingAmount() * this.stepDuration() : 0);
     }
 }
 

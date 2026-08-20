@@ -1,7 +1,10 @@
 <div class="transport-controls">
     <p>BPM: {{ scheduler.bpm() }}</p>
     <input type="range" id="bpm" min="60" max="240" [value]="scheduler.bpm()" (input)="setBpm($event)" />
+    <p>Swing: {{ scheduler.swingAmount() }}</p>
+    <input type="range" id="swing" min="0" max="0.5" step="0.01" [value]="scheduler.swingAmount()" (input)="setSwing($event)" />
 </div>
 <app-grid></app-grid>
 <button (click)="scheduler.isPlaying() ? scheduler.stop() : scheduler.start()">{{ scheduler.isPlaying() ? 'Stop' : 'Play' }}</button>
 <button (click)="sequencerState.resetPattern()">Reset</button>
+<button (click)="sequencerState.randomizePattern()">Randomize</button>

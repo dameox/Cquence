@@ -16,4 +16,7 @@ export class SequencerBody {
   setBpm(event: any) {
     this.scheduler.bpm.set(Number(event.target.value));
 }
+  setSwing(event: any) {
+    this.scheduler.swingAmount.set(Number(event.target.value));
+  }
 }

@@ -34,7 +34,12 @@ export class SequencerState {
       soloed: false
     }
   ]);
-
+  trackChance = new Map([
+      ['kick', 0.4],
+      ['clap', 0.2],
+      ['hat', 0.6],
+      ['snare', 0.2]
+    ]);
 
 
   toggleClick(trackIndex: number, stepIndex: number) {
@@ -109,4 +114,20 @@ export class SequencerState {
     });
   }
 
+  randomizePattern() {
+    
+
+    this.tracks.update( value => {
+      return value.map(track => {
+        const chance = this.trackChance.get(track.name);
+        if (chance !== undefined) {
+          return {
+            ...track,
+            steps: track.steps.map(() => Math.random() < chance)
+          };
+        }
+        return track;
+      });
+    });
+  }
 }
