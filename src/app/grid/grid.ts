@@ -11,6 +11,5 @@ import { Scheduler } from '../scheduler/scheduler';
 })
 export class Grid {
   sequencerState = inject(SequencerState);
-
-
+  scheduler = inject(Scheduler);
 }
