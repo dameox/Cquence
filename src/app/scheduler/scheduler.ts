@@ -32,7 +32,9 @@ export class Scheduler {
       this.sequencerState!.tracks().forEach((track) => {
 
         if(track.steps[this.currentStep()] && (this.anySoloed ? track.soloed : !track.muted)) {
-          this.audioEngine!.playSample(track.name + '1', this.nextStepTime);
+          const gain = track.accents[this.currentStep()] ? 1.0 : 0.8;
+          
+          this.audioEngine!.playSample(track.name + '1', this.nextStepTime, gain);
         }
 
       });

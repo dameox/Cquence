@@ -13,25 +13,29 @@ export class SequencerState {
       name: 'kick',
       steps: [true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false],
       muted: true,
-      soloed: false
+      soloed: false,
+      accents: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
     },
     {
       name: 'clap',
       steps: [false, false, false, false, true, false, false, false, false, false, false, false, true, false, false, false],
       muted: false,
-      soloed: false
+      soloed: false,
+      accents: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
     },
     {
       name: 'hat',
       steps: [true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false],
       muted: false,
-      soloed: false
+      soloed: false,
+      accents: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
     },
     {
       name: 'snare',
       steps: [false, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false],
       muted: false,
-      soloed: false
+      soloed: false,
+      accents: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
     }
   ]);
   trackChance = new Map([
@@ -101,6 +105,23 @@ export class SequencerState {
     });
   }
   
+  toggleAccent(trackIndex: number, stepIndex: number) {
+    this.tracks.update(value => {
+      return value.map((track,index) => {
+        if(index !== trackIndex) {
+          return track;
+        } else {
+          return {
+            ...track,
+            accents: track.accents.map((accent, i) => {
+              return i === stepIndex ? !accent : accent;
+            })
+          }
+        }
+      });
+    });
+  }
+  
   resetPattern() {
     this.tracks.update(value => {
       return value.map(track => {
@@ -108,7 +129,8 @@ export class SequencerState {
           ...track,
           steps: track.steps.map(() => false),
           muted: false,
-          soloed: false
+          soloed: false,
+          accents: track.accents.map(() => false)
         }
       });
     });

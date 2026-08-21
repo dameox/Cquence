@@ -81,6 +81,10 @@
   color: #161616;
 }
 
+.grid-cell.accented {
+  border: 2px solid #ff3b3b;
+}
+
 .led-row {
   display: grid;
   grid-template-columns: repeat(16, 40px);

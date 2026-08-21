@@ -22,7 +22,7 @@
     @for (item of sequencerState.tracks(); track item.name; let trackIndex = $index) {
       <div class="step-row">
         @for (step of item.steps; track $index; let stepIndex = $index) {
-          <div class="grid-cell" (click)="sequencerState.toggleClick(trackIndex, stepIndex)" [class.active]="step">{{ step }}</div>
+          <div class="grid-cell" (click)="sequencerState.toggleClick(trackIndex, stepIndex)" (contextmenu)="sequencerState.toggleAccent(trackIndex, stepIndex); $event.preventDefault()" [class.active]="step" [class.accented]="item.accents[stepIndex]"></div>
         }
       </div>
     }
